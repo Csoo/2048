@@ -1,8 +1,8 @@
 #include "game.h"
 #include <stdlib.h>
-#include <time.h>
 #include <iostream>
 #include <vector>
+#include "direction.h"
 
 void Game2048::addSquare() {
     const unsigned int nth = rand() % _empties + 1;
@@ -24,18 +24,19 @@ void Game2048::addSquare() {
 }
 
 void Game2048::move(Direction direction, unsigned int index) {
-    const unsigned int newIndex = index + direction;
+    const int newIndex = index + static_cast<int>(direction);
     if (newIndex < 0 || newIndex >= _width * _width)
         return;
     if (_board[newIndex] != 0 && _board[newIndex] != _board[index])
         return;
-    if (direction == LEFT && index % _width == 0)
+    if (direction == Direction::LEFT && index % _width == 0)
         return;
-    if (direction == RIGHT && index % _width == 3)
+    if (direction == Direction::RIGHT && index % _width == 3)
         return;
     if (_board[index] == _board[newIndex]) {
         _board[newIndex] <<= 1;
         _board[index] = 0;
+        _score += _board[newIndex];
         return;
     }
     _board[newIndex] = _board[index];
@@ -45,7 +46,7 @@ void Game2048::move(Direction direction, unsigned int index) {
 
 void Game2048::moveAll(Direction direction) {
     const unsigned int size = _width * _width;
-    if (direction == DOWN || direction == LEFT) {
+    if (direction == Direction::DOWN || direction == Direction::LEFT) {
         for (int index = 0; index < size; ++index) {
             if (_board[index] != 0)
                 move(direction, index);
@@ -77,7 +78,6 @@ Game2048::Game2048(unsigned int width) : _width(width) {
 }
 
 Game2048::Game2048() {
-    srand(time(NULL));
     _board = std::vector<unsigned int>(_width * _width);
 }
 
