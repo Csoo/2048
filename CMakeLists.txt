@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 include(CTest)
 enable_testing()
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/2048/*.cpp)
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/2048/*.cpp src/Player/*.cpp)
 
 add_executable(evolv_2048 ${SOURCES})
 
