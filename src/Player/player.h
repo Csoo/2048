@@ -4,14 +4,18 @@
 #include <string>
 class Player {
     std::string mDna;
-    int fittness = 0;
+    int mFittness = 1;  // 0
 
 public:
     Player();
+    Player(const std::string &dna);
     const std::string &dna() const;
+    int fittness() const;
     void setDna(const std::string &dna);
 
     void mutate(unsigned int numberOfGenes = 1);
+
+    Player operator+(Player &player);
 };
 
 #endif  // PLAYER_H

@@ -1,5 +1,6 @@
 #include "player.h"
 #include <stdlib.h>
+#include <string>
 #include "direction.h"
 
 void Player::setDna(const std::string &dna) {
@@ -14,10 +15,23 @@ void Player::mutate(unsigned int numberOfGenes) {
     }
 }
 
+Player Player::operator+(Player &player) {
+    Player tempPlayer;
+    const float fitnessRatio = (float)mFittness / (mFittness + player.fittness());
+    const int subDnaLength = fitnessRatio * mDna.size();
+    std::string dna = mDna;
+    tempPlayer.setDna(dna.replace(0, subDnaLength, player.dna().substr(0, subDnaLength)));
+    return tempPlayer;
+}
+
 const std::string &Player::dna() const {
     return mDna;
 }
 
-Player::Player() {
-    mDna = "DDRLULL";
+int Player::fittness() const {
+    return mFittness;
 }
+
+Player::Player() {}
+
+Player::Player(const std::string &dna) : mDna(dna) {}
