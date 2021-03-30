@@ -7,6 +7,13 @@ void Player::setDna(const std::string &dna) {
     mDna = dna;
 }
 
+void Player::randomDna(unsigned int length) {
+    mDna.erase();
+    for (int i = 0; i < length; ++i) {
+        mDna += static_cast<char>(ALL_DIRECTION[rand() % 4]);
+    }
+}
+
 void Player::mutate(unsigned int numberOfGenes) {
     for (int i = 0; i < numberOfGenes; ++i) {
         const unsigned int geneIdx = rand() % mDna.size();

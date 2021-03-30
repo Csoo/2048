@@ -1,6 +1,9 @@
 #ifndef DIRECTION_H
 #define DIRECTION_H
 
+#include <vector>
+#include "map"
+
 enum class Direction
 {
     LEFT = -1,
@@ -9,13 +12,16 @@ enum class Direction
     DOWN = -4
 };
 
-enum class DirectionGene
+enum class DirectionGene : char
 {
     LEFT = 'L',
-    RIGHT = 'R',
     UP = 'U',
+    RIGHT = 'R',
     DOWN = 'D'
 };
+
+static std::vector<DirectionGene> ALL_DIRECTION = {DirectionGene::UP, DirectionGene::DOWN, DirectionGene::LEFT,
+                                                   DirectionGene::RIGHT};
 
 inline DirectionGene operator++(DirectionGene &direction) {
     switch (direction) {

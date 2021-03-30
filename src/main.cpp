@@ -8,7 +8,8 @@ int main(int, char **) {
     srand(time(NULL));
     Game2048 game;
     game.start();
-    Player p2("DULRURR"), p1("RUDDRUPUUDDLUPRURRLUP");
+    Player p2("DULRURR"), p1;
+    p1.randomDna(10);
     p1.mutate();
     std::cout << p1.dna() << '\n';
     p1.mutate(2);
