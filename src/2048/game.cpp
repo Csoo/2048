@@ -5,80 +5,92 @@
 #include "direction.h"
 
 void Game2048::addSquare() {
-    const unsigned int nth = rand() % _empties + 1;
-    const int size = _width * _width;
+    if (mEmpties <= 0) {
+        mOver = true;
+        return;
+    }
+    const unsigned int nth = rand() % mEmpties + 1;
+    const int size = mWidth * mWidth;
     int index = 0;
     int ith = 0;
     while (ith != nth && index < size) {
-        if (_board[index] == 0)
+        if (mBoard[index] == 0)
             ++ith;
         ++index;
     }
 
-    if (index >= size) {
-        _over = true;
-        return;
-    }
-    --_empties;
-    _board[index - 1] = (rand() % 2 + 1) * 2;
+    // if (index > size) {
+    //     return;
+    // }
+    --mEmpties;
+    mBoard[index - 1] = (rand() % 2 + 1) * 2;
 }
 
 void Game2048::move(Direction direction, unsigned int index) {
     const int newIndex = index + static_cast<int>(direction);
-    if (newIndex < 0 || newIndex >= _width * _width)
+    if (newIndex < 0 || newIndex >= mWidth * mWidth)
         return;
-    if (_board[newIndex] != 0 && _board[newIndex] != _board[index])
+    if (mBoard[newIndex] != 0 && mBoard[newIndex] != mBoard[index])
         return;
-    if (direction == Direction::LEFT && index % _width == 0)
+    if (direction == Direction::LEFT && index % mWidth == 0)
         return;
-    if (direction == Direction::RIGHT && index % _width == 3)
+    if (direction == Direction::RIGHT && index % mWidth == 3)
         return;
-    if (_board[index] == _board[newIndex]) {
-        _board[newIndex] <<= 1;
-        _board[index] = 0;
-        _score += _board[newIndex];
+    if (mBoard[index] == mBoard[newIndex]) {
+        mBoard[newIndex] <<= 1;
+        mBoard[index] = 0;
+        mScore += mBoard[newIndex];
+        ++mEmpties;
         return;
     }
-    _board[newIndex] = _board[index];
-    _board[index] = 0;
+    mBoard[newIndex] = mBoard[index];
+    mBoard[index] = 0;
     move(direction, newIndex);
 }
 
 void Game2048::moveAll(Direction direction) {
-    const unsigned int size = _width * _width;
+    const unsigned int size = mWidth * mWidth;
     if (direction == Direction::DOWN || direction == Direction::LEFT) {
         for (int index = 0; index < size; ++index) {
-            if (_board[index] != 0)
+            if (mBoard[index] != 0)
                 move(direction, index);
         }
     } else {
         for (int index = size - 1; index >= 0; --index) {
-            if (_board[index] != 0)
+            if (mBoard[index] != 0)
                 move(direction, index);
         }
     }
     addSquare();
 }
 
+unsigned int Game2048::score() const {
+    return mScore;
+}
+
+bool Game2048::over() const {
+    return mOver;
+}
+
 std::ostream &operator<<(std::ostream &os, const Game2048 &game) {
-    for (int index = game._width * game._width - game._width; index >= 0; ++index) {
-        os << " " << game._board[index] << " ";
-        if (index % game._width == game._width - 1) {
+    for (int index = game.mWidth * game.mWidth - game.mWidth; index >= 0; ++index) {
+        os << " " << game.mBoard[index] << " ";
+        if (index % game.mWidth == game.mWidth - 1) {
             os << '\n';
-            index -= 2 * game._width;
+            index -= 2 * game.mWidth;
         }
     }
     return os;
 }
 
-Game2048::Game2048(unsigned int width) : _width(width) {
-    const unsigned int size = _width * _width;
-    _board = std::vector<unsigned int>(size);
-    _empties = size;
+Game2048::Game2048(unsigned int width) : mWidth(width) {
+    const unsigned int size = mWidth * mWidth;
+    mBoard = std::vector<unsigned int>(size);
+    mEmpties = size;
 }
 
 Game2048::Game2048() {
-    _board = std::vector<unsigned int>(_width * _width);
+    mBoard = std::vector<unsigned int>(mWidth * mWidth);
 }
 
 void Game2048::start() {

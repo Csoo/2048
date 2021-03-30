@@ -5,11 +5,11 @@
 #include "direction.h"
 
 class Game2048 {
-    unsigned int _score = 0;
-    unsigned int _width = 4;
-    std::vector<unsigned int> _board;
-    unsigned int _empties = 16;
-    bool _over = false;
+    unsigned int mScore = 0;
+    unsigned int mWidth = 4;
+    std::vector<unsigned int> mBoard;
+    unsigned int mEmpties = 16;
+    bool mOver = false;
 
     void move(Direction direction, unsigned int index);
     void addSquare();
@@ -23,6 +23,8 @@ public:
     void moveAll(Direction direction);
 
     friend std::ostream &operator<<(std::ostream &os, const Game2048 &game);
+    unsigned int score() const;
+    bool over() const;
 };
 
 #endif  // GAME_H
