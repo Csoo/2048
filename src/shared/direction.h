@@ -2,7 +2,6 @@
 #define DIRECTION_H
 
 #include <vector>
-#include "map"
 
 enum class Direction
 {
