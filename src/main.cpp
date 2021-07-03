@@ -37,7 +37,7 @@ int main(int, char **) {
     while (index < size && !game.over()) {
         makeMove(static_cast<DirectionGene>(p1.dna()[index++]), &game);
     }
-    std::cout << game << game.score();
+    std::cout << game << game.score() << " turn: " << index;
     game.over() ? std::cout << '\n' << "OVER" : std::cout << '\n' << "NOT OVER";
     return 0;
 }

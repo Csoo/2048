@@ -5,12 +5,22 @@
 #include "direction.h"
 
 void Game2048::addSquare() {
+    const int size = mWidth * mWidth;
     if (mEmpties <= 0) {
-        mOver = true;
+        bool found = false;
+        unsigned int index = 0;
+        while (index < size - 1 && !found) {  // last row check missing
+            if (index + mWidth >= size)
+                found = mBoard[index] == mBoard[index + 1];
+            else
+                found = (mBoard[index] == mBoard[index + 1] && index % mWidth != mWidth - 1) ||
+                        mBoard[index] == mBoard[index + mWidth];
+            ++index;
+        }
+        mOver = index >= size - mWidth;
         return;
     }
     const unsigned int nth = rand() % mEmpties + 1;
-    const int size = mWidth * mWidth;
     int index = 0;
     int ith = 0;
     while (ith != nth && index < size) {
@@ -19,9 +29,6 @@ void Game2048::addSquare() {
         ++index;
     }
 
-    // if (index > size) {
-    //     return;
-    // }
     --mEmpties;
     mBoard[index - 1] = (rand() % 2 + 1) * 2;
 }
@@ -34,7 +41,7 @@ void Game2048::move(Direction direction, unsigned int index) {
         return;
     if (direction == Direction::LEFT && index % mWidth == 0)
         return;
-    if (direction == Direction::RIGHT && index % mWidth == 3)
+    if (direction == Direction::RIGHT && index % mWidth == mWidth - 1)
         return;
     if (mBoard[index] == mBoard[newIndex]) {
         mBoard[newIndex] <<= 1;
