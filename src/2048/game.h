@@ -2,7 +2,7 @@
 #define GAME_H
 #include <ostream>
 #include <vector>
-#include "direction.h"
+#include "enums/direction.h"
 
 class Game2048 {
     unsigned int mScore = 0;

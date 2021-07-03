@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
-#include "direction.h"
 
 void Game2048::addSquare() {
     const int size = mWidth * mWidth;

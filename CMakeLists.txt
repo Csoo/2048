@@ -1,16 +1,22 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(evolv_2048 VERSION 0.1.0)
-set(CMAKE_CXX_STANDARD 17)
+cmake_minimum_required(VERSION 3.1.0)
+project(
+    evolv_2048
+    VERSION 0.1.0
+    LANGUAGES CXX    
+)
 
-include(CTest)
-enable_testing()
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_EXTENSIONS OFF)
 
-include_directories(src/shared)
+    set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/2048/*.cpp src/Player/*.cpp)
+    include(CTest)
+endif()
 
-add_executable(evolv_2048 ${SOURCES})
+add_subdirectory(shared)
+add_subdirectory(app)
+add_subdirectory(src)
 
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
+target_include_directories(game PUBLIC src)
+target_include_directories(shared INTERFACE shared)

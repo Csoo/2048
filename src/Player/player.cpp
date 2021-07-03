@@ -1,7 +1,7 @@
 #include "player.h"
 #include <stdlib.h>
 #include <string>
-#include "direction.h"
+#include "enums/direction.h"
 
 void Player::setDna(const std::string &dna) {
     mDna = dna;

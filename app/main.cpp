@@ -2,7 +2,7 @@
 #include <iostream>
 #include "2048/game.h"
 #include "Player/player.h"
-#include "direction.h"
+#include "enums/direction.h"
 
 void makeMove(DirectionGene direction, Game2048 *game) {
     switch (direction) {
