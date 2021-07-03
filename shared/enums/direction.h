@@ -19,11 +19,11 @@ enum class DirectionGene : char
     DOWN = 'D'
 };
 
-static std::vector<DirectionGene> ALL_DIRECTION = {DirectionGene::UP, DirectionGene::DOWN, DirectionGene::LEFT,
-                                                   DirectionGene::RIGHT};
+static std::vector<DirectionGene> ALL_DIRECTION = { DirectionGene::UP, DirectionGene::DOWN, DirectionGene::LEFT,
+                                                    DirectionGene::RIGHT };
 
-inline DirectionGene operator++(DirectionGene &direction) {
-    switch (direction) {
+inline DirectionGene operator++( DirectionGene &direction ) {
+    switch ( direction ) {
         case DirectionGene::LEFT:
             return DirectionGene::DOWN;
         case DirectionGene::RIGHT:

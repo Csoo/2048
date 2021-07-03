@@ -11,18 +11,20 @@ class Game2048 {
     unsigned int mEmpties = 16;
     bool mOver = false;
 
-    void move(Direction direction, unsigned int index);
+    void move( Direction direction, unsigned int index );
     void addSquare();
+
+    void moveAll( Direction direction );
 
 public:
     Game2048();
-    Game2048(unsigned int width);
-    Game2048(const Game2048 &c) = delete;
+    Game2048( unsigned int width );
+    Game2048( const Game2048 &c ) = delete;
 
     void start();
-    void moveAll(Direction direction);
+    void makeMove( DirectionGene direction );
 
-    friend std::ostream &operator<<(std::ostream &os, const Game2048 &game);
+    friend std::ostream &operator<<( std::ostream &os, const Game2048 &game );
     unsigned int score() const;
     bool over() const;
 };
