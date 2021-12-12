@@ -4,13 +4,13 @@
 #include <string>
 class Player {
     std::string mDna;
-    int mFittness = 1;  // 0
+    int mFitness = 1;  // 0
 
 public:
     Player( int dnaLength = 100 );
     Player( const std::string &dna );
     const std::string &dna() const;
-    int fittness() const;
+    int fitness() const;
     void setDna( const std::string &dna );
 
     // Create randomized DNA
@@ -19,7 +19,7 @@ public:
     // Cyclic permutation of numberOfGenes number random selected genes.
     void mutate( unsigned int numberOfGenes = 1 );
 
-    // Cross DNAs of two player based on fittness ratio.
+    // Cross DNAs of two player based on fitness ratio.
     Player operator+( Player &player );
 };
 

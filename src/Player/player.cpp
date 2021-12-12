@@ -24,7 +24,7 @@ void Player::mutate( unsigned int numberOfGenes ) {
 
 Player Player::operator+( Player &player ) {
     Player tempPlayer;
-    const float fitnessRatio = (float)mFittness / ( mFittness + player.fittness() );
+    const float fitnessRatio = (float)mFitness / ( mFitness + player.fitness() );
     const int subDnaLength = fitnessRatio * mDna.size();
     tempPlayer.setDna( mDna.replace( 0, subDnaLength, player.dna().substr( 0, subDnaLength ) ) );
     return tempPlayer;
@@ -34,8 +34,8 @@ const std::string &Player::dna() const {
     return mDna;
 }
 
-int Player::fittness() const {
-    return mFittness;
+int Player::fitness() const {
+    return mFitness;
 }
 
 Player::Player( const std::string &dna ) : mDna( dna ) {}
